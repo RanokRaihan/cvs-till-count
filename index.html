@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CVS Till Counter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+  </head>
+  <body class="dark bg-gray-900 text-white min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold text-center mb-2 text-red-400">
+          CVS Till Counter
+        </h1>
+        <p class="text-center text-gray-400">
+          Night Shift Cash Counting System
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Left Column - Input Section -->
+        <div class="space-y-6">
+          <!-- Drawer Information -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4 text-red-400">
+              Drawer Information
+            </h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="drawerNumber"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Drawer Number</label
+                >
+                <input
+                  type="number"
+                  id="drawerNumber"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  placeholder="Enter drawer #"
+                />
+              </div>
+              <div>
+                <label
+                  for="salesAmount"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Total Sales ($)</label
+                >
+                <input
+                  type="number"
+                  id="salesAmount"
+                  step="0.01"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  placeholder="Enter sales amount"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Bills Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4 text-green-400">
+              Bills Count
+            </h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="bills100"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >$100 Bills</label
+                >
+                <input
+                  type="number"
+                  id="bills100"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+              <div>
+                <label
+                  for="bills50"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >$50 Bills</label
+                >
+                <input
+                  type="number"
+                  id="bills50"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+              <div>
+                <label
+                  for="bills20"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >$20 Bills</label
+                >
+                <input
+                  type="number"
+                  id="bills20"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+              <div>
+                <label
+                  for="bills10"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >$10 Bills</label
+                >
+                <input
+                  type="number"
+                  id="bills10"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+              <div>
+                <label
+                  for="bills5"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >$5 Bills</label
+                >
+                <input
+                  type="number"
+                  id="bills5"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+              <div>
+                <label
+                  for="bills1"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >$1 Bills</label
+                >
+                <input
+                  type="number"
+                  id="bills1"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Coins Section -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4 text-yellow-400">
+              Coins Count
+            </h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="quarters"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Quarters ($0.25)</label
+                >
+                <input
+                  type="number"
+                  id="quarters"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+              <div>
+                <label
+                  for="dimes"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Dimes ($0.10)</label
+                >
+                <input
+                  type="number"
+                  id="dimes"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+              <div>
+                <label
+                  for="nickels"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Nickels ($0.05)</label
+                >
+                <input
+                  type="number"
+                  id="nickels"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+              <div>
+                <label
+                  for="pennies"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Pennies ($0.01)</label
+                >
+                <input
+                  type="number"
+                  id="pennies"
+                  min="0"
+                  class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                  placeholder="0"
+                  oninput="calculateTotal()"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex gap-4">
+            <button
+              onclick="calculateWithdrawal()"
+              class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200"
+            >
+              Calculate Withdrawal
+            </button>
+            <button
+              onclick="saveRecord()"
+              class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200"
+            >
+              Save Record
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column - Results and Records -->
+        <div class="space-y-6">
+          <!-- Current Total -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4 text-blue-400">
+              Current Drawer Total
+            </h2>
+            <div
+              class="text-3xl font-bold text-center text-green-400"
+              id="totalAmount"
+            >
+              $0.00
+            </div>
+          </div>
+
+          <!-- Withdrawal Results -->
+          <div
+            class="bg-gray-800 rounded-lg p-6 border border-gray-700"
+            id="withdrawalResults"
+            style="display: none"
+          >
+            <h2 class="text-xl font-semibold mb-4 text-red-400">
+              Withdrawal Instructions
+            </h2>
+            <div id="withdrawalInstructions" class="space-y-2"></div>
+            <div class="mt-4 p-4 bg-gray-700 rounded-lg">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-300">Amount to Withdraw:</span>
+                <span
+                  class="text-lg font-semibold text-red-400"
+                  id="withdrawalAmount"
+                  >$0.00</span
+                >
+              </div>
+              <div class="flex justify-between items-center mt-2">
+                <span class="text-gray-300">Remaining in Drawer:</span>
+                <span
+                  class="text-lg font-semibold text-green-400"
+                  id="remainingAmount"
+                  >$200.00</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Messages -->
+          <div id="statusMessages" class="space-y-2"></div>
+
+          <!-- Saved Records -->
+          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-semibold text-purple-400">
+                Saved Records
+              </h2>
+              <button
+                onclick="loadRecords()"
+                class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition duration-200"
+              >
+                Refresh
+              </button>
+            </div>
+            <div id="recordsList" class="space-y-2 max-h-80 overflow-y-auto">
+              <!-- Records will be loaded here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
