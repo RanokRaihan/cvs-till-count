@@ -1,0 +1,25 @@
+{
+  "name": "cvs-till-count",
+  "version": "1.0.0",
+  "description": "a app for counting tills of cvs",
+  "homepage": "https://github.com/RanokRaihan/cvs-till-count#readme",
+  "bugs": {
+    "url": "https://github.com/RanokRaihan/cvs-till-count/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RanokRaihan/cvs-till-count.git"
+  },
+  "license": "ISC",
+  "author": "Ranok Raihan",
+  "type": "commonjs",
+  "main": "script.js",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./output/styles.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "tailwindcss": "^4.1.13"
+  }
+}
