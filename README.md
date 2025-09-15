@@ -1,5 +1,11 @@
 # CVS Till Counter Application
 
+## 🔗 Live Demo
+
+**[Access the CVS Till Counter Application](https://ranokraihan.github.io/cvs-till-count/)**
+
+Click the link above to use the application directly in your browser. No download or installation required!
+
 A comprehensive web-based cash counting system designed specifically for CVS employees during night shifts. This application helps streamline the process of counting cash, calculating withdrawals, and maintaining records while ensuring the required $200 minimum remains in each drawer.
 
 ## Features
